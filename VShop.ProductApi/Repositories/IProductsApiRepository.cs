@@ -1,4 +1,5 @@
-﻿using VShop.ProductApi.Models;
+﻿using VShop.ProductApi.DTOs;
+using VShop.ProductApi.Models;
 
 namespace VShop.ProductApi.Repositories
 {
@@ -9,5 +10,6 @@ namespace VShop.ProductApi.Repositories
         Task<ProductsApi> Create(ProductsApi product);
         Task<ProductsApi> Update(ProductsApi product);
         Task<ProductsApi> Delete(int id);
+        Task<ProductsApi> GetProductsByName(string name);
     }
 }

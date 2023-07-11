@@ -18,6 +18,11 @@ namespace VShop.ProductApi.Services
 
         public async Task Create(ProductsDTO productDto)
         {
+            var nameProductExist = await _productsApiRepository.GetProductsByName(productDto.Name);
+            if(nameProductExist != null)
+            {
+                throw new Exception("Nome de produto ja existe.");
+            }
             var products = _mapper.Map<ProductsApi>(productDto);
             await _productsApiRepository.Create(products);
             
@@ -46,11 +51,16 @@ namespace VShop.ProductApi.Services
 
         public async Task Update(ProductsDTO product)
         {
-            var productEntity = await _productsApiRepository.GetProductById(product.Id);
-            if(productEntity != null)
-            {
-                await _productsApiRepository.Update(productEntity);
-            }
+           
+                var check = _mapper.Map<ProductsApi>(product);
+                await _productsApiRepository.Update(check);
+            
+        }
+
+        public async Task<ProductsDTO> GetProductsByName(string name)
+        {
+            var productEntity = await _productsApiRepository.GetProductsByName(name);
+            return _mapper.Map<ProductsDTO>(productEntity);
         }
     }
 }

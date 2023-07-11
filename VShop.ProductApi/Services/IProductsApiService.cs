@@ -10,6 +10,8 @@ namespace VShop.ProductApi.Services
         Task Create(ProductsDTO product);
         Task Update(ProductsDTO product);
         Task Delete(int id);
+
+        Task<ProductsDTO> GetProductsByName (string name);
        
     }
 }

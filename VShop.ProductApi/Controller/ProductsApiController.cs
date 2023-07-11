@@ -47,12 +47,18 @@ namespace VShop.ProductApi.Controller
         [HttpPut("{id:int}")]
         public async Task<ActionResult> Edit(int id, [FromBody] ProductsDTO productDto)
         {
-            if (id != productDto.Id)
-                return BadRequest("id nao existe");
+            
             if (productDto is null)
                 return BadRequest("Data invalida");
             await _productsApiService.Update(productDto);
             return Ok(productDto);
+        }
+
+        [HttpDelete("{id:int}")]
+        public async Task<ActionResult> Delete(int id)
+        {   
+            await _productsApiService.Delete(id);
+            return Ok();
         }
     }
 }

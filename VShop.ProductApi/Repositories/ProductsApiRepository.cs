@@ -22,6 +22,7 @@ namespace VShop.ProductApi.Repositories
         {
             var product = await GetProductById(id);
             _context.ProductsApi.Remove(product);
+              await _context.SaveChangesAsync();
             return product;
         }
 
@@ -37,9 +38,13 @@ namespace VShop.ProductApi.Repositories
 
         public async Task<ProductsApi> Update(ProductsApi product)
         {
-            _context.Entry(product).State = EntityState.Modified;
+            _context.ProductsApi.Update(product);
             await _context.SaveChangesAsync();
             return product;
+        }
+        public async Task<ProductsApi> GetProductsByName(string name)
+        {
+            return await _context.ProductsApi.Where(x => x.Name == name).FirstOrDefaultAsync();
         }
     }
 }
